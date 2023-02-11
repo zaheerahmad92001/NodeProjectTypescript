@@ -1,0 +1,12 @@
+{
+    "extends": "@tsconfig/node16/tsconfig.json",
+    "compilerOptions": {
+        "lib": ["es6"],
+        "paths": {
+            "src/*": [ "." ]
+          },      
+    },
+    "include": ["."],
+    "exclude": ["node_modules"],
+    "baseUrl": "./src/*",
+  }
