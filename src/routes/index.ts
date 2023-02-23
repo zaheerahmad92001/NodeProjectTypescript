@@ -13,19 +13,21 @@ const upload = multer({ dest: "uploads/" }); // to upload form data
 // route.use(express.json()) // to upload raw json data
 import { validateUserObject } from "../middleware/validateObject";
 import { UserValidation } from "../validations/userValidation";
-import { VerifyAuthToken } from "../middleware/verifyAccessToken";
-import axios from "axios";
-const cheerio = require('cheerio');
-const http = require('http'); // or 'https' for https:// URLs
-const fs = require('fs');
+import { verifyAuthToken } from "../middleware/verifyAccessToken";
+// import axios from "axios";
+// const cheerio = require('cheerio');
+// const http = require('http'); // or 'https' for https:// URLs
+// const fs = require('fs');
 
 
-route.get("/users/", upload.none(), UserController.Login);
-route.post("/category/",upload.none(),VerifyAuthToken, CategoryController.createCategory);
-route.post("/sale/",upload.none(),VerifyAuthToken,SaleController.createSale);
-route.post("/product/", upload.single('file'),VerifyAuthToken,ProductController.addProduct)
-route.post("/stock/",upload.none(),VerifyAuthToken,StockController.addStock)
-
-// route.post('/users/', userController.createUser)
+route.post('/users/create/',upload.single('file'),validateUserObject(UserValidation), UserController.createUser)
+route.get("/users/login/", upload.none(), UserController.login);
+route.get("/users/search/",upload.none(),verifyAuthToken,UserController.searchUsers)
+route.post("/category/create/",upload.none(),verifyAuthToken, CategoryController.createCategory);
+route.get("/category/catProduct/" ,upload.none(),verifyAuthToken, CategoryController.categoryProduct)
+route.post("/sale/create/",upload.none(),verifyAuthToken,SaleController.createSale);
+route.get("/sale/detail/",upload.none(),verifyAuthToken,SaleController.saleDetail);
+route.post("/product/", upload.single('file'),verifyAuthToken,ProductController.addProduct)
+route.post("/stock/",upload.none(),verifyAuthToken,StockController.addStock)
 export { route };
 //  module.exports = route

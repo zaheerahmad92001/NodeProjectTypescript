@@ -9,9 +9,11 @@ import {
   TypedResponse,
   loginRequestParams,
   loginResponse,
+  searchUserRequestParams,
 } from "../../../types";
 import bcrypt from "bcryptjs";
 import { GenerateAccessToken } from "../../helper";
+import { count } from "console";
 
 class UserController {
   async createUser(
@@ -20,6 +22,7 @@ class UserController {
     next: NextFunction
   ) {
     const { email, name, age, password, role, otp, status } = req.body;
+    console.log("typeof", typeof name);
     try {
       if (!req.body) {
         return res.status(400).send({ message: "Bad request", success: false });
@@ -61,7 +64,7 @@ class UserController {
     }
   }
 
-  async Login(
+  async login(
     req: TypedRequestBody<loginRequestParams>,
     res: TypedResponse<loginResponse>,
     next: NextFunction
@@ -90,6 +93,29 @@ class UserController {
     } else {
       return res.status(400).send("user not fount");
     }
+  }
+
+  async searchUsers(
+    req: TypedRequestBody<searchUserRequestParams>,
+    res: TypedResponse<any>,
+    next: NextFunction
+  ) {
+    const { age, role, status } = req.body;
+    let query: any = {};
+    {
+      age ? (query.age = { $eq: age }) : null;
+      role ? (query.role = { $eq: role }) : null;
+      status ? (query.status = { $in:['rejected','approved'] }) : null;
+      // status ? (query.status = { $eq: status }) : null;
+    }
+    const users = await Users.find(query, {
+      name: 1,
+      age: 1,
+      status: 1,
+      role: 1,
+    }).lean();
+    if (users) return res.status(200).send(users);
+    else return res.status(400).send({ message: "error", success: false });
   }
 }
 export default new UserController();

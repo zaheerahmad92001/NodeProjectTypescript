@@ -16,16 +16,16 @@ import { TypedRequestBody , TypedResponse, IUser, IUserRes} from '../../types';
 import {UserValidation} from '../validations/userValidation'
 
 const validateUserObject=(resourceSchema:typeof UserValidation)=> async (req:TypedRequestBody<IUser>, res:TypedResponse<IUserRes>, next:NextFunction)=>{
-    const {body} = req
-    console.log('body', body)
-    body.name=JSON.parse(body.name.toString())
-    resourceSchema.validate(body,{ abortEarly: false }).then((isValid)=>{
-          next()
-    })
-    .catch((error)=>{
-        res.status(400).send({ message:error.errors, success: false });
-        return false
-    })
-    return false
+     const {body} = req
+     console.log('body', body)
+     body.name=JSON.parse(body.name.toString())
+     resourceSchema.validate(body,{ abortEarly: false }).then((isValid)=>{
+           next()
+     })
+     .catch((error)=>{
+         res.status(400).send({ message:error.errors, success: false });
+         return false
+     })
+     return false
 }
 export {validateUserObject}

@@ -1,6 +1,7 @@
 import { NextFunction } from "express";
 import { catetory } from "../../models/category/category";
 import { Users } from "../../models/users";
+import { product } from "../../models/product/product";
 import {
   ICategory,
   ICategoryResponseParams,
@@ -40,5 +41,31 @@ class CategoryController {
       });
     }
   }
+
+async categoryProduct(
+   req: TypedRequestBody<any>,
+    res: TypedResponse<any>,
+    next: NextFunction
+){
+  try{
+  let catProducts = await catetory.aggregate([
+    {
+      $lookup:{
+        from: "products",
+            localField:"_id",
+            foreignField:"cat_id",
+            as: "cateProduct"
+      }
+    }
+  ])
+  // let catProducts = await product.find({}).populate("cat_id")
+  return res.status(200).send(catProducts)
+  }catch(error){
+    console.log('errro',error)
+    return res.status(400).send({message:'success false' , success:false})
+  }
+}
+
+
 }
 export default new CategoryController();

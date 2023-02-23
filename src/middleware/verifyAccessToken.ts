@@ -10,7 +10,7 @@ import {
 } from "../../types";
 import { VerifyToken } from "../helper";
 
-const VerifyAuthToken = (
+const verifyAuthToken = (
   req: TypedRequestBody<ICategory>,
   res: TypedResponse<ICategoryResponseParams>,
   next: NextFunction
@@ -24,4 +24,4 @@ const VerifyAuthToken = (
     return res.status(400).send({ messge: "invalid token", success: false });
   }
 };
-export { VerifyAuthToken };
+export { verifyAuthToken };

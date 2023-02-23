@@ -103,6 +103,13 @@ export type categoryRequestParam={
   cat_id:Types.ObjectId
 }
 
+export type searchUserRequestParams={
+  age?:Number,
+  role?: roleEnum;
+  status?: statusEnum;
+}
+
+
 export interface TypedRequestBody<T> extends Express.Request {
   [x: string]: any;
   body: T;
