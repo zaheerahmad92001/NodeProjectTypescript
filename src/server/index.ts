@@ -30,6 +30,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.json()); 
 // app.use(express.urlencoded({ extended: true })) // for form data xwww/url-encoded 
 app.use('/api',route)
-app.listen(PORT,Hostname,()=>{
+app.listen(process.env.PORT,Hostname,()=>{
     console.log('express server listening at port',`${PORT} and hostname is ${Hostname}`)
 })
