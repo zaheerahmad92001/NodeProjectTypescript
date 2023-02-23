@@ -1,4 +1,7 @@
-require('dotenv').config()
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+// require('dotenv').config()
 const {PORT_NO , HOST} = process.env
 const express = require('express')
 // import express from 'express'
