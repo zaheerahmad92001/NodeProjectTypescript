@@ -1,11 +1,11 @@
 require('dotenv').config()
-const {PORT , HOST} = process.env
+const {PORT_NO , HOST} = process.env
 const express = require('express')
 // import express from 'express'
 const app = express()
 const bodyParser = require('body-parser')
 // const port:number = parseInt(PORT!) || 3000; //non-null assertion
-const port:string = PORT || '3000';
+const PORT:string = PORT_NO || '5000';
 const Hostname:string = HOST || '127.0.0.1';
 // const connectDB = require('../dbconnection')
 import connectDB from "../dbconnection"
@@ -27,6 +27,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.json()); 
 // app.use(express.urlencoded({ extended: true })) // for form data xwww/url-encoded 
 app.use('/api',route)
-app.listen(port,Hostname,()=>{
-    console.log('express server listening at port',`${port} and hostname is ${Hostname}`)
+app.listen(PORT,Hostname,()=>{
+    console.log('express server listening at port',`${PORT} and hostname is ${Hostname}`)
 })
