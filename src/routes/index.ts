@@ -14,10 +14,7 @@ const upload = multer({ dest: "uploads/" }); // to upload form data
 import { validateUserObject } from "../middleware/validateObject";
 import { UserValidation } from "../validations/userValidation";
 import { verifyAuthToken } from "../middleware/verifyAccessToken";
-// import axios from "axios";
-// const cheerio = require('cheerio');
-// const http = require('http'); // or 'https' for https:// URLs
-// const fs = require('fs');
+
 
 
 route.post('/users/create/',upload.single('file'),validateUserObject(UserValidation), UserController.createUser)

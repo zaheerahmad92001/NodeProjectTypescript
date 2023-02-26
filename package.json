@@ -11,7 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx nodemon ./src/server/index.ts",
     "start": "ts-node ./src/server/index.ts",
-     "deploy": "git add . && git commit -m Heroku && git push heroku main"
+    "postinstall": "tsc",
+    "deploy": "git add . && git commit -m Heroku && git push heroku main"
   },
   "keywords": [],
   "author": "",

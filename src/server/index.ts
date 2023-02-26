@@ -1,11 +1,11 @@
 require('dotenv').config()
-const {PORT_NO , HOST} = process.env
+const {HOST} = process.env
 const express = require('express')
 // import express from 'express'
 const app = express()
 const bodyParser = require('body-parser')
 // const port:number = parseInt(PORT!) || 3000; //non-null assertion
-const PORT:string = PORT_NO || '5000';
+const PORT:string = process.env.PORT || '3001';
 const Hostname:string = HOST || '127.0.0.1';
 // const connectDB = require('../dbconnection')
 import connectDB from "../dbconnection"
