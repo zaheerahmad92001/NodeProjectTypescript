@@ -6,7 +6,7 @@
             "src/*": [ "." ]
           },     
           "target": "es2016",
-          "module":"CommonJS",
+          "module":"commonjs",
           "outDir": "src",
           "allowSyntheticDefaultImports": true,
           "esModuleInterop":true,
