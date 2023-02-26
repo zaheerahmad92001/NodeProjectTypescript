@@ -1,6 +1,6 @@
 // export {}
 // const Users = require("../../models/users");
-import Express, { NextFunction } from "express";
+import { NextFunction } from "express";
 import { Users } from "../../models/users";
 import {
   IUser,
@@ -11,7 +11,7 @@ import {
   loginResponse,
   searchUserRequestParams,
 } from "../../../types";
-import bcrypt from "bcryptjs";
+import * as bcrypt from "bcryptjs";
 import { GenerateAccessToken } from "../../helper";
 import { count } from "console";
 

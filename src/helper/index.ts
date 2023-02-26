@@ -1,5 +1,5 @@
 // const jwt = require('jsonwebtoken');
-import jwt from "jsonwebtoken";
+import * as jwt from "jsonwebtoken";
 import { tokenParams } from "../../types";
 const { JWT_SECRET } = process.env;
 
