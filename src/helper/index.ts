@@ -11,7 +11,7 @@ export const GenerateAccessToken = (data: tokenParams) => {
   );
 };
 
-export const VerifyToken = (token: string) => {
+export const VerifyToken = (token: string):unknown => {
 
  return jwt.verify(token, JWT_SECRET!, function (err, decoded) {
     if (err) {
