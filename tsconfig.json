@@ -9,8 +9,8 @@
     "module": "commonjs",
     "outDir": "src",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
-    //   "noImplicitAny": false,
+    "esModuleInterop": true,
+      "noImplicitAny": false,
   },
   "typeRoots": ["./typings", "./node_modules", "./node_modules/@types/"],
   "include": ["src/**/*.ts" /* Include every ts file in source folder */],
