@@ -12,8 +12,16 @@ import {
   searchUserRequestParams,
 } from "../../../types";
 import * as bcrypt from "bcryptjs";
+import * as AWS from "aws-sdk";
+import * as fs from 'fs';
 import { GenerateAccessToken } from "../../helper";
-import { count } from "console";
+const {AWS_ACCESS_KEY_ID , AWS_SECRET_ACCESS_KEY ,AWS_BUCKET_NAME} = process.env;
+
+const s3 = new AWS.S3({
+  accessKeyId:AWS_ACCESS_KEY_ID,
+  secretAccessKey:AWS_SECRET_ACCESS_KEY,
+});
+const BUCKET =AWS_BUCKET_NAME;
 
 class UserController {
   async createUser(
@@ -45,6 +53,24 @@ class UserController {
         otp: otp,
       });
       if (req.file) {
+        const filename = req.file.filename;
+        const fileContent = fs.readFileSync(req.file.path);
+        
+        const uploadParams = {
+          Bucket:BUCKET!,
+          Key: `${filename}.jpg`,
+          Body: fileContent,
+      
+        };
+
+        s3.upload(uploadParams,function(error , data){
+            if(error){
+              console.log('error in uploading file',error)
+            }else{
+              console.log('here is file upload data', data)
+            }
+        })
+        console.log("file",fileContent);
         newUser.file = req.file.path;
       }
 
@@ -105,7 +131,7 @@ class UserController {
     {
       age ? (query.age = { $eq: age }) : null;
       role ? (query.role = { $eq: role }) : null;
-      status ? (query.status = { $in:['rejected','approved'] }) : null;
+      status ? (query.status = { $in: ["rejected", "approved"] }) : null;
       // status ? (query.status = { $eq: status }) : null;
     }
     const users = await Users.find(query, {

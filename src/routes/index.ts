@@ -8,6 +8,8 @@ import CategoryController from "../controllers/category";
 import SaleController from "../controllers/sale";
 import ProductController from "../controllers/product";
 import StockController from "../controllers/stock";
+import ChatController from "../controllers/chat";
+
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" }); // to upload form data
 // route.use(express.json()) // to upload raw json data
@@ -26,5 +28,6 @@ route.post("/sale/create/",upload.none(),verifyAuthToken,SaleController.createSa
 route.get("/sale/detail/",upload.none(),verifyAuthToken,SaleController.saleDetail);
 route.post("/product/", upload.single('file'),verifyAuthToken,ProductController.addProduct)
 route.post("/stock/",upload.none(),verifyAuthToken,StockController.addStock)
+route.post("/save-chat",upload.none(),verifyAuthToken,ChatController.saveChat)
 export { route };
 //  module.exports = route

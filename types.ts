@@ -86,6 +86,16 @@ export type ISale = {
   userId:JwtPayload, // comming from verifyAccessToken MW
 };
 
+export type IChat = {
+  sender:Types.ObjectId;
+  receiver:Types.ObjectId;
+  message:String;
+  created: Date;
+  deleted?: boolean;
+  updated: Date;
+  userId:JwtPayload, // comming from verifyAccessToken MW
+};
+
 export type tokenParams = {
     _id:Types.ObjectId
 }
